@@ -22,4 +22,8 @@ def MainMenu():
 
     print("Select an option (1-3): ")
 
-MainMenu()
+def main():
+    MainMenu()
+    
+if __name__ == "__main__":
+    main()
