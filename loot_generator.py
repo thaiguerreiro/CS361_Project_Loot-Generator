@@ -20,7 +20,7 @@ def MainMenu():
     print("   2. Generate Random Loot")
     print("   3. Exit\n")
 
-    print("Select an option (1-3): ")
+    print("Select an option (1-3): ", end="")
 
 def ChooseCategory():
     print("\n--------------------------------------------\n")
@@ -34,7 +34,7 @@ def ChooseCategory():
     print("   4. Random")
     print("   5. Return to Main Menu\n")
 
-    print("Select an option (1-5): ")
+    print("Select an option (1-5): ", end="")
 
 def GeneratedLootHeader():
     print("\n--------------------------------------------\n")
@@ -52,9 +52,31 @@ def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
         print(f"Trait: {trait}")
 
 def main():
-    MainMenu()
-    ChooseCategory()
-    GeneratedLootHeader()
+    mainMenuChoice = 0
+    categoryChoice = 0
+    while mainMenuChoice != 3:
+        MainMenu()
+
+        try:
+            mainMenuChoice = int(input())
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 3.")
+            continue
+
+        match mainMenuChoice:
+            case 1:
+                # Choose a category logic here
+                pass
+            case 2:
+                # Generate random loot logic here
+                pass
+            case 3:
+                pass  # Exit the loop and end the program
+            case _:
+                print("Invalid choice. Please select a valid option.")
+
+    print("\nThank you for using this loot generator. Goodbye!")
+        
     
 if __name__ == "__main__":
     main()
