@@ -38,12 +38,13 @@ def ChooseCategory():
 
 def GeneratedLootHeader():
     print("\n--------------------------------------------\n")
-    print("Generated Loot:\n")
+    print("               Generated Loot")
     print("\n--------------------------------------------\n")
 
 def main():
     MainMenu()
     ChooseCategory()
+    GeneratedLootHeader()
     
 if __name__ == "__main__":
     main()
