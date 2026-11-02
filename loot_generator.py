@@ -1,4 +1,4 @@
-
+import random
 
 def MainMenuHeader():
     print("\n--------------------------------------------\n")
