@@ -2,7 +2,7 @@
 
 def MainMenu():
     print("\n--------------------------------------------\n")
-    print("\n               Loot Generator               \n")
+    print("               Loot Generator               ")
     print("\n--------------------------------------------\n")
     
     print("Welcome to the random loot generator!\n")
