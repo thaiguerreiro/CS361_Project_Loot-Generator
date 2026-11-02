@@ -41,6 +41,18 @@ def GeneratedLootHeader():
     print("               Generated Loot")
     print("\n--------------------------------------------\n")
 
+def GeneratedLoot(name, type, rarity, stat, statType, durability, trait = None):
+    print(f"Name: {name}")
+    print(f"Type: {type}")
+    print(f"Rarity: {rarity}\n")
+
+    print(f"{statType}: {stat}")
+    print(f"Durability: {durability}")
+    if trait:
+        print(f"Trait: {trait}")
+
+
+
 def main():
     MainMenu()
     ChooseCategory()
