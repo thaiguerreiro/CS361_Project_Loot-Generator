@@ -1,6 +1,10 @@
 import random
 
 
+CATEGORIES = ["Weapon", "Armor", "Accessory"]
+RARITIES = ["Common", "Uncommon", "Rare", "Epic", "Legendary"]
+
+
 def MainMenuHeader():
     print("\n--------------------------------------------\n")
     print("               Loot Generator               ")
