@@ -1,6 +1,6 @@
 
 
-def MainMenu():
+def MainMenuHeader():
     print("\n--------------------------------------------\n")
     print("               Loot Generator               ")
     print("\n--------------------------------------------\n")
@@ -14,12 +14,13 @@ def MainMenu():
     print("   2. Review the generated item")
     print("   3. Save, discard, or return to the menu")
 
+def MainMenu():
     print("\n--------------------------------------------\n")
-
+    
     print("   1. Choose a Category")
     print("   2. Generate Random Loot")
     print("   3. Exit\n")
-
+    
     print("Select an option (1-3): ", end="")
 
 def ChooseCategory():
@@ -54,6 +55,8 @@ def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
 def main():
     mainMenuChoice = 0
     categoryChoice = 0
+
+    MainMenuHeader()
     while mainMenuChoice != 3:
         MainMenu()
 
