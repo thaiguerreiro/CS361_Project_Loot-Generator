@@ -36,6 +36,11 @@ def ChooseCategory():
 
     print("Select an option (1-5): ")
 
+def GeneratedLootHeader():
+    print("\n--------------------------------------------\n")
+    print("Generated Loot:\n")
+    print("\n--------------------------------------------\n")
+
 def main():
     MainMenu()
     ChooseCategory()
