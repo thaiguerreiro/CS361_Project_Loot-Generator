@@ -41,7 +41,7 @@ def GeneratedLootHeader():
     print("               Generated Loot")
     print("\n--------------------------------------------\n")
 
-def GeneratedLoot(name, type, rarity, stat, statType, durability, trait = None):
+def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
     print(f"Name: {name}")
     print(f"Type: {type}")
     print(f"Rarity: {rarity}\n")
@@ -50,8 +50,6 @@ def GeneratedLoot(name, type, rarity, stat, statType, durability, trait = None):
     print(f"Durability: {durability}")
     if trait:
         print(f"Trait: {trait}")
-
-
 
 def main():
     MainMenu()
