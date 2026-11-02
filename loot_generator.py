@@ -63,7 +63,7 @@ def main():
         try:
             mainMenuChoice = int(input())
         except ValueError:
-            print("Invalid input. Please enter a number between 1 and 3.")
+            print("\nInvalid input. Please enter a number between 1 and 3.")
             continue
 
         match mainMenuChoice:
@@ -76,7 +76,7 @@ def main():
             case 3:
                 pass  # Exit the loop and end the program
             case _:
-                print("Invalid choice. Please select a valid option.")
+                print("\nInvalid choice. Please select a valid option.")
 
     print("\nThank you for using this loot generator. Goodbye!")
         
