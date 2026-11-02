@@ -1,5 +1,6 @@
 import random
 
+
 def MainMenuHeader():
     print("\n--------------------------------------------\n")
     print("               Loot Generator               ")
@@ -14,6 +15,7 @@ def MainMenuHeader():
     print("   2. Review the generated item")
     print("   3. Save, discard, or return to the menu")
 
+
 def MainMenu():
     print("\n--------------------------------------------\n")
     
@@ -22,6 +24,7 @@ def MainMenu():
     print("   3. Exit\n")
     
     print("Select an option (1-3): ", end="")
+
 
 def ChooseCategory():
     print("\n--------------------------------------------\n")
@@ -37,10 +40,12 @@ def ChooseCategory():
 
     print("Select an option (1-5): ", end="")
 
+
 def GeneratedLootHeader():
     print("\n--------------------------------------------\n")
     print("               Generated Loot")
     print("\n--------------------------------------------\n")
+
 
 def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
     print(f"Name: {name}")
@@ -51,6 +56,7 @@ def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
     print(f"Durability: {durability}")
     if trait:
         print(f"Trait: {trait}")
+
 
 def main():
     mainMenuChoice = 0
