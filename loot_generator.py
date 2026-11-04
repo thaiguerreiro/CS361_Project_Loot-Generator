@@ -9,38 +9,32 @@ MID_RARITY_MODIFIERS = ['Silver', 'Golden', 'Bronze', 'Crystal', 'Obsidian', 'Ir
 HIGH_RARITY_MODIFIERS = [
                           {"name": "Embersteel",
                           "description": "forged in the heart of a volcano, causing it to radiate heat and power.",
-                          "statType": "Damage",
-                          "stat": 10,
+                          "bonus": {"Damage": 10},
                           "trait": "Fire Affinity"},
 
                          {"name": "Shadowfang",
                           "description": "imbued with the essence of darkness, allowing it to strike fear into the hearts of enemies.",
-                          "statType": "Damage",
-                          "stat": 15,
+                          "bonus": {"Damage": 15},
                           "trait": "Stealth Enhancement"},
 
                          {"name": "Stormbreaker",
-                          "description": "imbued with the power of stores, causing it to vibrate with electricity.",
-                          "statType": "Damage",
-                          "stat": 10,
+                          "description": "imbued with the power of storms, causing it to vibrate with electricity.",
+                          "bonus": {"Damage": 10, "Defense": 15},
                           "trait": "Lightning Affinity"},
 
                          {"name": "Frostwood",
                           "description": "carved from the heart of an ancient glacier, providing insulation and strength.",
-                          "statType": "Defense",
-                          "stat": 20,
+                          "bonus": {"Defense": 20},
                           "trait": "Ice Affinity"},
 
                          {"name": "Stoneheart",
                           "description": "crafted from the hardest stone, making it incredibly durable and resistant to damage.",
-                          "statType": "Defense",
-                          "stat": 25,
+                          "bonus": {"Defense": 5, "Durability": 15},
                           "trait": None},
 
                          {"name": "Blazing",
                           "description": "enchanted with the essence of fire, causing it to emit intense heat and flames. Grants the bearer A",
-                          "statType": None,
-                          "stat": None,
+                          "bonus":{},
                           "trait": "Burns nearby foes"}
                          ]
 
@@ -135,7 +129,7 @@ def GenerateLoot(category):
         statType = "Damage"
         durability = random.randint(50, 100) * statModifier
 
-        
+
 
 
 # Main function to run the loot generator program
