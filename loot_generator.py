@@ -57,7 +57,7 @@ def GeneratedLootHeader():
 
 
 # Function to display the generated loot details
-def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
+def LootSummary(name, type, rarity, stat, statType, durability, trait):
     print(f"Name: {name}")
     print(f"Type: {type}")
     print(f"Rarity: {rarity}\n")
