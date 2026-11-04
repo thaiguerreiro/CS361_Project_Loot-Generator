@@ -191,11 +191,16 @@ def main():
             case 1: # Choose a category
                 # Choose a category logic here
                 pass
+
             case 2: # Generate random loot
-                # Generate random loot logic here
-                pass
+                category = random.choice(CATEGORIES)
+                GeneratedLootHeader() # Display the generated loot header
+                name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
+                LootSummary(name, category, rarity, stat, statType, durability, trait)
+
             case 3: # Exit the program
                 pass
+
             case _: # Handle invalid menu choice
                 print("\nInvalid choice. Please select a valid option.")
 
