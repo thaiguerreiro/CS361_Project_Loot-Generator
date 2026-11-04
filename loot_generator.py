@@ -103,46 +103,69 @@ def LootSummary(name, type, rarity, stat, statType, durability, trait):
 
 # Function to generate random loot based on the selected category
 def GenerateLoot(category):
+    rarity = random.choice(RARITIES)
+
+    # Determine the type and stat type based on the category
     if category == "Weapon":
-        rarity = random.choice(RARITIES)
-        weaponTypes = ["Sword", "Axe", "Bow", "Dagger"]
-
-        # Determine stat modifier based on rarity
-        if rarity == "Common":
-            modifier = random.choice(LOW_RARITY_MODIFIERS)
-            statModifier = 0.25
-        elif rarity == "Uncommon":
-            modifier = random.choice(MID_RARITY_MODIFIERS)
-            statModifier = 0.5
-        elif rarity == "Rare":
-            modifier = random.choice(MID_RARITY_MODIFIERS)
-            statModifier = 0.75
-        elif rarity == "Epic":
-            modifier = random.choice(HIGH_RARITY_MODIFIERS)
-            statModifier = 1.0
-        else:  # Legendary
-            modifier = random.choice(HIGH_RARITY_MODIFIERS)
-            statModifier = 1.5
-
-        stat = random.randint(50, 100) * statModifier
+        types = ["Sword", "Axe", "Bow", "Dagger"]
         statType = "Damage"
-        durability = random.randint(50, 100) * statModifier
-        
-        if rarity in ["Epic", "Legendary"]:
-            name = f"{modifier['name']} {random.choice(weaponTypes)}"
+    elif category == "Armor":
+        types = ["Helmet", "Chestplate", "Leggings", "Boots"]
+        statType = "Defense"
+    else:  # Accessory
+        types = ["Ring", "Amulet", "Bracelet"]
+        statType = random.choice(["Damage", "Defense"])
 
-            for modName, modValue in modifier["bonus"].items():
-                if modName == "Durability":
-                    durability += modValue
-                elif modName == statType:
-                    stat += modValue
-                    
-            trait = modifier["trait"]
+    # Determine stat modifier based on rarity
+    if rarity == "Common":
+        modifier = random.choice(LOW_RARITY_MODIFIERS)
+        statModifier = 0.25
+    elif rarity == "Uncommon":
+        modifier = random.choice(MID_RARITY_MODIFIERS)
+        statModifier = 0.5
+    elif rarity == "Rare":
+        modifier = random.choice(MID_RARITY_MODIFIERS)
+        statModifier = 0.75
+    elif rarity == "Epic":
+        modifier = random.choice(HIGH_RARITY_MODIFIERS)
+        statModifier = 1.0
+    else:  # Legendary
+        modifier = random.choice(HIGH_RARITY_MODIFIERS)
+        statModifier = 1.5
 
-        else:
-            name = f"{modifier} {random.choice(weaponTypes)}"
-            
+    # Generate the base stats for the loot item
+    itemType = random.choice(types)
+    stat = int(random.randint(50, 100) * statModifier)
+    durability = int(random.randint(50, 100) * statModifier)
 
+    # Determine the appropriate article ("A" or "An") based on the first letter of the item type
+    article = "An" if itemType[0].lower() in "aeiou" else "A"
+
+    # If the rarity is Epic or Legendary, use the modifier's name and description, and apply bonus stats
+    if rarity in ["Epic", "Legendary"]:
+        name = f"{modifier['name']} {itemType}"
+
+        # Apply bonus stats from the modifier to the base stats
+        for modName, modValue in modifier["bonus"].items():
+            if modName == "Durability":
+                durability += modValue
+            elif modName == statType:
+                stat += modValue
+
+        # Generate the description and trait based on the modifier
+        description = f"{article} {itemType.lower()} {modifier['description']}"
+        trait = modifier["trait"]
+
+    # If the rarity is Common, Uncommon, or Rare, generate the apropriate name and description based on the modifier
+    else:
+        name = f"{modifier} {itemType}"
+        trait = None
+        if rarity in ["Uncommon", "Rare"]:
+            description = f"{article} {itemType.lower()} forged from {modifier}."
+        else: # Common
+            description = f"{article} {modifier} {itemType.lower()}, barely usable."
+
+    return name, rarity, statType, stat, description, durability, trait
 
 
 
