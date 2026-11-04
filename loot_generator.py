@@ -4,6 +4,45 @@ import random
 # Constants for loot categories and rarities
 CATEGORIES = ["Weapon", "Armor", "Accessory"]
 RARITIES = ["Common", "Uncommon", "Rare", "Epic", "Legendary"]
+LOW_RARITY_MODIFIERS = ['Rusty', 'Worn', 'Old', 'Dull', 'Cracked', 'Wooden']
+MID_RARITY_MODIFIERS = ['Silver', 'Golden', 'Bronze', 'Crystal', 'Obsidian', 'Iron', 'Steel']
+HIGH_RARITY_MODIFIERS = [
+                          {"name": "Embersteel",
+                          "description": "forged in the heart of a volcano, causing it to radiate heat and power.",
+                          "statType": "Damage",
+                          "stat": 10,
+                          "trait": "Fire Affinity"},
+
+                         {"name": "Shadowfang",
+                          "description": "imbued with the essence of darkness, allowing it to strike fear into the hearts of enemies.",
+                          "statType": "Damage",
+                          "stat": 15,
+                          "trait": "Stealth Enhancement"},
+
+                         {"name": "Stormbreaker",
+                          "description": "imbued with the power of stores, causing it to vibrate with electricity.",
+                          "statType": "Damage",
+                          "stat": 10,
+                          "trait": "Lightning Affinity"},
+
+                         {"name": "Frostwood",
+                          "description": "carved from the heart of an ancient glacier, providing insulation and strength.",
+                          "statType": "Defense",
+                          "stat": 20,
+                          "trait": "Ice Affinity"},
+
+                         {"name": "Stoneheart",
+                          "description": "crafted from the hardest stone, making it incredibly durable and resistant to damage.",
+                          "statType": "Defense",
+                          "stat": 25,
+                          "trait": None},
+
+                         {"name": "Blazing",
+                          "description": "enchanted with the essence of fire, causing it to emit intense heat and flames. Grants the bearer A",
+                          "statType": None,
+                          "stat": None,
+                          "trait": "Burns nearby foes"}
+                         ]
 
 
 # Function to display the main menu header
