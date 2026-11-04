@@ -33,7 +33,7 @@ HIGH_RARITY_MODIFIERS = [
                           "trait": None},
 
                          {"name": "Blazing",
-                          "description": "enchanted with the essence of fire, causing it to emit intense heat and flames. Grants the bearer A",
+                          "description": "enchanted with the essence of fire, causing it to emit intense heat and flames.",
                           "bonus":{},
                           "trait": "Burns nearby foes"}
                          ]
