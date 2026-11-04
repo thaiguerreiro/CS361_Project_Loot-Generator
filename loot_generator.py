@@ -1,10 +1,12 @@
 import random
 
 
+# Constants for loot categories and rarities
 CATEGORIES = ["Weapon", "Armor", "Accessory"]
 RARITIES = ["Common", "Uncommon", "Rare", "Epic", "Legendary"]
 
 
+# Function to display the main menu header
 def MainMenuHeader():
     print("\n--------------------------------------------\n")
     print("               Loot Generator               ")
@@ -20,6 +22,7 @@ def MainMenuHeader():
     print("   3. Save, discard, or return to the menu")
 
 
+# Function to display the main menu options
 def MainMenu():
     print("\n--------------------------------------------\n")
     
@@ -30,6 +33,7 @@ def MainMenu():
     print("Select an option (1-3): ", end="")
 
 
+# Function to display the category selection menu
 def ChooseCategory():
     print("\n--------------------------------------------\n")
 
@@ -45,12 +49,14 @@ def ChooseCategory():
     print("Select an option (1-5): ", end="")
 
 
+# Function to display the generated loot header
 def GeneratedLootHeader():
     print("\n--------------------------------------------\n")
     print("               Generated Loot")
     print("\n--------------------------------------------\n")
 
 
+# Function to display the generated loot details
 def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
     print(f"Name: {name}")
     print(f"Type: {type}")
@@ -62,14 +68,18 @@ def GeneratedLoot(name, type, rarity, stat, statType, durability, trait):
         print(f"Trait: {trait}")
 
 
+# Main function to run the loot generator program
 def main():
     mainMenuChoice = 0
     categoryChoice = 0
 
-    MainMenuHeader()
-    while mainMenuChoice != 3:
-        MainMenu()
+    MainMenuHeader() # Display the main menu header
 
+    # Loop to keep the program running until the user chooses to exit
+    while mainMenuChoice != 3:
+        MainMenu() # Display the main menu options
+
+        # Get user input for the main menu choice and handle invalid input
         try:
             mainMenuChoice = int(input())
         except ValueError:
@@ -77,19 +87,20 @@ def main():
             continue
 
         match mainMenuChoice:
-            case 1:
+            case 1: # Choose a category
                 # Choose a category logic here
                 pass
-            case 2:
+            case 2: # Generate random loot
                 # Generate random loot logic here
                 pass
-            case 3:
-                pass  # Exit the loop and end the program
-            case _:
+            case 3: # Exit the program
+                pass
+            case _: # Handle invalid menu choice
                 print("\nInvalid choice. Please select a valid option.")
 
     print("\nThank you for using this loot generator. Goodbye!")
         
-    
+
+# Entry point of the program
 if __name__ == "__main__":
     main()
