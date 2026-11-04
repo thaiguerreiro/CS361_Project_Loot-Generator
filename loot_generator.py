@@ -107,6 +107,37 @@ def LootSummary(name, type, rarity, stat, statType, durability, trait):
         print(f"Trait: {trait}")
 
 
+# Function to generate random loot based on the selected category
+def GenerateLoot(category):
+    if category == "Weapon":
+        type = "Weapon"
+        rarity = random.choice(RARITIES)
+
+        # Determine stat modifier based on rarity
+        if rarity == "Common":
+            modifier = random.choice(LOW_RARITY_MODIFIERS)
+            statModifier = 0.25
+        elif rarity == "Uncommon":
+            modifier = random.choice(MID_RARITY_MODIFIERS)
+            statModifier = 0.5
+        elif rarity == "Rare":
+            modifier = random.choice(MID_RARITY_MODIFIERS)
+            statModifier = 0.75
+        elif rarity == "Epic":
+            modifier = random.choice(HIGH_RARITY_MODIFIERS)
+            statModifier = 1.0
+        else:  # Legendary
+            modifier = random.choice(HIGH_RARITY_MODIFIERS)
+            statModifier = 1.5
+
+        name = f"{modifier} {random.choice(['Sword', 'Axe', 'Bow', 'Dagger'])}"
+        stat = random.randint(50, 100) * statModifier
+        statType = "Damage"
+        durability = random.randint(50, 100) * statModifier
+
+        
+
+
 # Main function to run the loot generator program
 def main():
     mainMenuChoice = 0
