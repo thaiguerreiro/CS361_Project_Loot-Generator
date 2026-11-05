@@ -151,8 +151,9 @@ def GenerateLoot(category):
     stat = int(random.randint(50, 100) * statModifier)
     durability = int(random.randint(50, 100) * statModifier)
 
-    # Determine the appropriate article ("A" or "An") based on the first letter of the item type
-    article = "An" if itemType[0].lower() in "aeiou" else "A"
+    # Determine the appropriate article ("A" or "An") based on the first letter of the item type, or none if plural
+    article = "An " if itemType[0].lower() in "aeiou" else "A "
+    article = "" if itemType[-1].lower() == "s" else article
 
     # If the rarity is Epic or Legendary, use the modifier's name and description, and apply bonus stats
     if rarity in ["Epic", "Legendary"]:
@@ -170,7 +171,8 @@ def GenerateLoot(category):
                 traits.append(f"{modName} +{modValue}")
 
         # Generate the description and trait based on the modifier
-        description = f"{article} {itemType.lower()} {modifier['description']}"
+        itemType = itemType.lower() if itemType[-1].lower() != "s" else itemType
+        description = f"{article}{itemType} {modifier['description']}"
 
         if modifier["trait"]:
             traits.append(modifier["trait"])
@@ -184,9 +186,13 @@ def GenerateLoot(category):
         name = f"{modifier} {itemType}"
         trait = None
         if rarity in ["Uncommon", "Rare"]:
-            description = f"{article} {itemType.lower()} forged from {modifier}."
+            itemType = itemType.lower() if itemType[-1].lower() != "s" else itemType
+            description = f"{article}{itemType} forged from {modifier}."
         else: # Common
-            description = f"{article} {modifier} {itemType.lower()}, barely usable."
+            article = "An " if modifier.lower() in "aeiou" else "A "
+            article = "" if itemType[-1].lower() == "s" else article
+            modifier = modifier.lower() if itemType[-1].lower() != "s" else modifier
+            description = f"{article}{modifier} {itemType.lower()}, barely usable."
 
     return name, rarity, statType, stat, description, durability, trait
 
