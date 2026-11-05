@@ -112,7 +112,7 @@ def ViewDescription(name, lootCategory, rarity, stat, statType, durability, trai
     print(f"{statType}: {stat}")
     print(f"Durability: {durability}\n")
 
-    print("\nDescription:")
+    print("Description:")
     print(textwrap.fill(description, width=45))
     if trait:
         print(trait)
@@ -219,6 +219,31 @@ def GenerateLoot(category):
     return name, rarity, statType, stat, description, durability, trait
 
 
+def checkSure(message):
+    choice = 0
+
+    print("\n" + textwrap.fill(message, width=45))
+
+    print("\n   1. Yes, I am sure")
+    print("   2. No, go back\n")
+
+    while choice not in (1, 2):
+        print("Select an option (1-2): ", end="")
+
+        try:
+            choice = int(input())
+        except ValueError:
+            print("\nInvalid input. Please enter either 1 or 2.")
+            continue
+        match choice:
+            case 1:
+                return True
+            case 2:
+                return False
+            case _:
+                print("\nInvalid choice. Please select a valid option.")
+
+
 def LootMenu(category):
     choice = 0
     saved = False
@@ -243,8 +268,14 @@ def LootMenu(category):
                 ViewDescription(name, lootCategory, rarity, stat, statType, durability, trait, description)
 
             case 2: # Save item
+                if saved:
+                    message = "This item has already been saved. Are you sure you want to save it again? This will create another copy."
+                    sure = checkSure(message)
+                    if not sure:
+                        continue
+
                 SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
-                print(f"\nItem '{name}' saved!\n")
+                print(f"\nItem '{name}' saved!")
                 saved = True
 
             case 3: # Generate another
@@ -255,9 +286,23 @@ def LootMenu(category):
                 saved = False
 
             case 4: # Return to categories menu
+                if not saved:
+                    message = "Item not saved, are you certain you want to delete this item and choose another category?"
+                    sure = checkSure(message)
+                    if not sure:
+                        choice = 0
+                        continue
+    
                 return "Category"
 
             case 5: # Return to Main Menu
+                if not saved:
+                    message = "Item not saved, are you certain you want to delete this item and choose another category?"
+                    sure = checkSure(message)
+                    if not sure:
+                        choice = 0
+                        continue
+
                 MainMenuHeader() # Display the main menu header again after returning from loot menu
                 return "Main"
 
