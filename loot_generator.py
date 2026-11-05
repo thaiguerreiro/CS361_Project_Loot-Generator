@@ -1,4 +1,6 @@
 import random
+import json
+import os
 
 
 # Constants for loot categories and rarities
@@ -221,7 +223,7 @@ def LootMenu(category):
 
             case _: # Handle invalid loot option choice
                 print("\nInvalid choice. Please select a valid option.")
-                
+
     MainMenuHeader() # Display the main menu header again after returning from loot menu
         
 
