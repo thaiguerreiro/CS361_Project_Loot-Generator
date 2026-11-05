@@ -124,14 +124,15 @@ def ViewDescription(name, lootCategory, rarity, stat, statType, durability, trai
 # Function to display the loot options menu
 def LootOptions(saved):
     savedMessage = " (Already Saved)" if saved else ""
+    notSavedMessage = " (Item Not Saved)" if not saved else ""
 
     print("\n--------------------------------------------\n")
 
     print("   1. View Description")
     print(f"   2. Save Item{savedMessage}")
-    print("   3. Generate Another (Same Chosen Category)")
-    print("   4. Choose Another Category")
-    print("   5. Return to Main Menu\n")
+    print(f"   3. Generate Another (Same Chosen Category){notSavedMessage}")
+    print(f"   4. Choose Another Category{notSavedMessage}")
+    print(f"   5. Return to Main Menu{notSavedMessage}\n")
 
     print("Select an option (1-5): ", end="")
 
