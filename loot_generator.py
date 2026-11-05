@@ -104,7 +104,7 @@ def LootSummary(name, type, rarity, stat, statType, durability, trait):
 # Function to display the loot options menu
 def LootOptions():
     print("\n--------------------------------------------\n")
-    
+
     print("   1. View Description")
     print("   2. Delete and Generate Another")
     print("   3. Save and Generate Another")
@@ -181,6 +181,50 @@ def GenerateLoot(category):
     return name, rarity, statType, stat, description, durability, trait
 
 
+def LootMenu(category):
+    choice = 0
+
+    GeneratedLootHeader() # Display the generated loot header
+    name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
+    LootSummary(name, category, rarity, stat, statType, durability, trait)
+
+    while choice != 5 and choice !=4:
+        LootOptions() # Display the loot options menu
+
+        # Get user input for the loot options choice and handle invalid input
+        try:
+            choice = int(input())
+        except ValueError:
+            print("\nInvalid input. Please enter a number between 1 and 5.")
+            continue
+
+        match choice:
+            case 1: # View description
+                ViewDescription(name, category, rarity, stat, statType, durability, trait, description)
+
+            case 2: # Delete and generate another
+                name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
+                LootSummary(name, category, rarity, stat, statType, durability, trait)
+
+            case 3: # Save and generate another
+                SaveLoot({name, category, rarity, stat, statType, durability, trait, description})
+                print(f"\nItem '{name}' saved!\n")
+                name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
+                LootSummary(name, category, rarity, stat, statType, durability, trait)
+
+            case 4: # Delete and return to main menu
+                print("\nReturning to main menu...\n")
+
+            case 5: # Save and return to main menu
+                SaveLoot({name, category, rarity, stat, statType, durability, trait, description})
+                print(f"\nItem '{name}' saved! Returning to main menu...\n")
+
+            case _: # Handle invalid loot option choice
+                print("\nInvalid choice. Please select a valid option.")
+                
+    MainMenuHeader() # Display the main menu header again after returning from loot menu
+        
+
 
 # Main function to run the loot generator program
 def main():
@@ -207,9 +251,7 @@ def main():
 
             case 2: # Generate random loot
                 category = random.choice(CATEGORIES)
-                GeneratedLootHeader() # Display the generated loot header
-                name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
-                LootSummary(name, category, rarity, stat, statType, durability, trait)
+                LootMenu(category)
 
             case 3: # Exit the program
                 pass
