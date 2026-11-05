@@ -99,8 +99,6 @@ def LootSummary(name, type, rarity, stat, statType, durability, trait):
 
     print(f"{statType}: {stat}")
     print(f"Durability: {durability}")
-    if trait:
-        print(f"Trait: {trait}")
 
 
 # Function to display the loot options menu
