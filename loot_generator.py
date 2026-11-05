@@ -1,6 +1,7 @@
 import random
 import json
 import os
+import textwrap
 
 
 # Constants for loot categories and rarities
@@ -99,6 +100,25 @@ def LootSummary(name, type, rarity, stat, statType, durability, trait):
 
     print(f"{statType}: {stat}")
     print(f"Durability: {durability}")
+
+
+# View an expanded description of the item
+def ViewDescription(name, lootCategory, rarity, stat, statType, durability, trait, description):
+    GeneratedLootHeader()
+    print(f"Name: {name}")
+    print(f"Type: {lootCategory}")
+    print(f"Rarity: {rarity}\n")
+
+    print(f"{statType}: {stat}")
+    print(f"Durability: {durability}\n")
+
+    print("\nDescription:")
+    print(textwrap.fill(description, width=45))
+    if trait:
+        print(trait)
+
+    print("\nPress enter to return...", end='')
+    input()
 
 
 # Function to display the loot options menu
