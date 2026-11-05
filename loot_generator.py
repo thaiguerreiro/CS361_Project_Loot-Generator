@@ -122,14 +122,16 @@ def ViewDescription(name, lootCategory, rarity, stat, statType, durability, trai
 
 
 # Function to display the loot options menu
-def LootOptions():
+def LootOptions(saved):
+    savedMessage = " (Already Saved)" if saved else ""
+
     print("\n--------------------------------------------\n")
 
     print("   1. View Description")
-    print("   2. Delete and Generate Another")
-    print("   3. Save and Generate Another")
-    print("   4. Delete and Return to Main Menu")
-    print("   5. Save and Return to Main Menu\n")
+    print(f"   2. Save Item{savedMessage}")
+    print("   3. Generate Another (Same Chosen Category)")
+    print("   4. Choose Another Category")
+    print("   5. Return to Main Menu\n")
 
     print("Select an option (1-5): ", end="")
 
@@ -219,14 +221,15 @@ def GenerateLoot(category):
 
 def LootMenu(category):
     choice = 0
+    saved = False
     lootCategory = random.choice(CATEGORIES) if category == "Random" else category
 
     GeneratedLootHeader() # Display the generated loot header
-    name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
+    name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
     LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
 
-    while (choice != 5) and (choice != 4):
-        LootOptions() # Display the loot options menu
+    while choice not in (4, 5):
+        LootOptions(saved) # Display the loot options menu
 
         # Get user input for the loot options choice and handle invalid input
         try:
@@ -239,31 +242,29 @@ def LootMenu(category):
             case 1: # View description
                 ViewDescription(name, lootCategory, rarity, stat, statType, durability, trait, description)
 
-            case 2: # Delete and generate another
-                lootCategory = random.choice(CATEGORIES) if category == "Random" else category
-
-                name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
-                LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
-
-            case 3: # Save and generate another
+            case 2: # Save item
                 SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
                 print(f"\nItem '{name}' saved!\n")
+                saved = True
+
+            case 3: # Generate another
                 lootCategory = random.choice(CATEGORIES) if category == "Random" else category
 
                 name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
                 LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
+                saved = False
 
-            case 4: # Delete and return to main menu
-                print("\nReturning to main menu...\n")
+            case 4: # Return to categories menu
+                return "Category"
 
-            case 5: # Save and return to main menu
-                SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
-                print(f"\nItem '{name}' saved! Returning to main menu...\n")
+            case 5: # Return to Main Menu
+                MainMenuHeader() # Display the main menu header again after returning from loot menu
+                return "Main"
 
             case _: # Handle invalid loot option choice
                 print("\nInvalid choice. Please select a valid option.")
 
-    MainMenuHeader() # Display the main menu header again after returning from loot menu
+    
 
 
 def SaveLoot(name, category, rarity, stat, statType, durability, trait, description):
@@ -307,6 +308,7 @@ def main():
     # Loop to keep the program running until the user chooses to exit
     while mainMenuChoice != 3:
         MainMenu() # Display the main menu options
+        menuReturn = ""
 
         # Get user input for the main menu choice and handle invalid input
         try:
@@ -321,7 +323,7 @@ def main():
 
                 while categoryChoice != 5:
                     ChooseCategory()
-                    
+
                     try:
                         categoryChoice = int(input())
                     except ValueError:
@@ -330,20 +332,22 @@ def main():
 
                     match categoryChoice:
                         case 1:
-                            LootMenu("Weapon")
+                            menuReturn = LootMenu("Weapon")
                         case 2:
-                            LootMenu("Armor")
+                            menuReturn = LootMenu("Armor")
                         case 3:
-                            LootMenu("Accessory")
+                            menuReturn = LootMenu("Accessory")
                         case 4:
-                            LootMenu("Random")
+                            menuReturn = LootMenu("Random")
                         case 5:
                             pass
                         case _:
                             print("\nInvalid choice. Please select a valid option.")
 
             case 2: # Generate random loot
-                LootMenu("Random")
+                menuReturn = LootMenu("Random")
+                if menuReturn == "Category":
+                    CategoryMenu()
 
             case 3: # Exit the program
                 pass
