@@ -305,7 +305,7 @@ def LootMenu(category):
             case 5: # Return to Main Menu
                 # If item is not saved, check if the user is sure
                 if not saved:
-                    message = "Item not saved, are you certain you want to delete this item and choose another category?"
+                    message = "Item not saved, are you certain you want to delete this item and return to the Main Menu?"
                     sure = checkSure(message)
                     if not sure:
                         choice = 0
