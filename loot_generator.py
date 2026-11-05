@@ -101,6 +101,17 @@ def LootSummary(name, type, rarity, stat, statType, durability, trait):
         print(f"Trait: {trait}")
 
 
+# Function to display the loot options menu
+def LootOptions():
+    print("\n   1. View Description")
+    print("   2. Delete and Generate Another")
+    print("   3. Save and Generate Another")
+    print("   4. Delete and Return to Main Menu")
+    print("   5. Save and Return to Main Menu\n")
+
+    print("Select an option (1-5): ", end="")
+
+
 # Function to generate random loot based on the selected category
 def GenerateLoot(category):
     rarity = random.choice(RARITIES)
