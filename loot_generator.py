@@ -103,7 +103,9 @@ def LootSummary(name, type, rarity, stat, statType, durability, trait):
 
 # Function to display the loot options menu
 def LootOptions():
-    print("\n   1. View Description")
+    print("\n--------------------------------------------\n")
+    
+    print("   1. View Description")
     print("   2. Delete and Generate Another")
     print("   3. Save and Generate Another")
     print("   4. Delete and Return to Main Menu")
