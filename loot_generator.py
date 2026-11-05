@@ -159,17 +159,26 @@ def GenerateLoot(category):
     # If the rarity is Epic or Legendary, use the modifier's name and description, and apply bonus stats
     if rarity in ["Epic", "Legendary"]:
         name = f"{modifier['name']} {itemType}"
+        traits = []
 
         # Apply bonus stats from the modifier to the base stats
         for modName, modValue in modifier["bonus"].items():
             if modName == "Durability":
                 durability += modValue
+                traits.append(f"Durability +{modValue}")
             elif modName == statType:
                 stat += modValue
+                traits.append(f"{modName} +{modValue}")
 
         # Generate the description and trait based on the modifier
         description = f"{article} {itemType.lower()} {modifier['description']}"
-        trait = modifier["trait"]
+
+        if modifier["trait"]:
+            traits.append(modifier["trait"])
+
+        trait = ", ".join(traits) if traits else None
+
+        trait = f"{modifier['name']}: {trait}" if trait else None
 
     # If the rarity is Common, Uncommon, or Rare, generate the apropriate name and description based on the modifier
     else:
