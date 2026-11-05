@@ -301,7 +301,6 @@ def SaveLoot(name, category, rarity, stat, statType, durability, trait, descript
 # Main function to run the loot generator program
 def main():
     mainMenuChoice = 0
-    categoryChoice = 0
 
     MainMenuHeader() # Display the main menu header
 
@@ -318,8 +317,30 @@ def main():
 
         match mainMenuChoice:
             case 1: # Choose a category
-                # Choose a category logic here
-                pass
+                categoryChoice = 0
+
+                while categoryChoice != 5:
+                    ChooseCategory()
+                    
+                    try:
+                        categoryChoice = int(input())
+                    except ValueError:
+                        print("\nInvalid input. Please enter a number between 1 and 5.")
+                        continue
+
+                    match categoryChoice:
+                        case 1:
+                            LootMenu("Weapon")
+                        case 2:
+                            LootMenu("Armor")
+                        case 3:
+                            LootMenu("Accessory")
+                        case 4:
+                            LootMenu("Random")
+                        case 5:
+                            pass
+                        case _:
+                            print("\nInvalid choice. Please select a valid option.")
 
             case 2: # Generate random loot
                 LootMenu("Random")
