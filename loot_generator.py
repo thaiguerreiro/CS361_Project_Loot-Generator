@@ -209,7 +209,7 @@ def LootMenu(category):
                 LootSummary(name, category, rarity, stat, statType, durability, trait)
 
             case 3: # Save and generate another
-                SaveLoot({name, category, rarity, stat, statType, durability, trait, description})
+                SaveLoot(name, category, rarity, stat, statType, durability, trait, description)
                 print(f"\nItem '{name}' saved!\n")
                 name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
                 LootSummary(name, category, rarity, stat, statType, durability, trait)
@@ -218,14 +218,45 @@ def LootMenu(category):
                 print("\nReturning to main menu...\n")
 
             case 5: # Save and return to main menu
-                SaveLoot({name, category, rarity, stat, statType, durability, trait, description})
+                SaveLoot(name, category, rarity, stat, statType, durability, trait, description)
                 print(f"\nItem '{name}' saved! Returning to main menu...\n")
 
             case _: # Handle invalid loot option choice
                 print("\nInvalid choice. Please select a valid option.")
 
     MainMenuHeader() # Display the main menu header again after returning from loot menu
-        
+
+
+def SaveLoot(name, category, rarity, stat, statType, durability, trait, description):
+    filename = "saved_loot.json"
+
+    # Load existing loot, or create an empty list
+    if os.path.exists(filename):
+        with open(filename, "r") as file:
+            try:
+                loot = json.load(file)
+            except json.JSONDecodeError:
+                loot = []
+    else:
+        loot = []
+
+    # Create a dictionary for the new item
+    newLoot = {
+        "name": name,
+        "category": category,
+        "rarity": rarity,
+        "stat": stat,
+        "statType": statType,
+        "durability": durability,
+        "trait": trait,
+        "description": description
+    }
+
+    # Add the item and save the updated list
+    loot.append(newLoot)
+
+    with open(filename, "w") as file:
+        json.dump(loot, file, indent=4)
 
 
 # Main function to run the loot generator program
