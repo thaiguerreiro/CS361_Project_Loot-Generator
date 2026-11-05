@@ -118,7 +118,7 @@ def ViewDescription(name, lootCategory, rarity, stat, statType, durability, trai
         print(trait)
 
     print("\nPress enter to return...", end='')
-    input()
+    input() # Wait for user to press enter
 
 
 # Function to display the loot options menu
@@ -219,6 +219,7 @@ def GenerateLoot(category):
     return name, rarity, statType, stat, description, durability, trait
 
 
+# Function to make sure users are certain before double saving or exiting without saving
 def checkSure(message):
     choice = 0
 
@@ -230,20 +231,22 @@ def checkSure(message):
     while choice not in (1, 2):
         print("Select an option (1-2): ", end="")
 
+        # Get user input for user sure choice and handle invalid input
         try:
             choice = int(input())
         except ValueError:
             print("\nInvalid input. Please enter either 1 or 2.")
             continue
         match choice:
-            case 1:
+            case 1: # User is sure
                 return True
-            case 2:
+            case 2: # User is not sure
                 return False
             case _:
                 print("\nInvalid choice. Please select a valid option.")
 
 
+# Function that handles menu of what to do when generating items
 def LootMenu(category):
     choice = 0
     saved = False
@@ -268,12 +271,14 @@ def LootMenu(category):
                 ViewDescription(name, lootCategory, rarity, stat, statType, durability, trait, description)
 
             case 2: # Save item
+                # If item is already saved, check if the user is sure
                 if saved:
                     message = "This item has already been saved. Are you sure you want to save it again? This will create another copy."
                     sure = checkSure(message)
                     if not sure:
                         continue
 
+                # Save item
                 SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
                 print(f"\nItem '{name}' saved!")
                 saved = True
@@ -286,6 +291,7 @@ def LootMenu(category):
                 saved = False
 
             case 4: # Return to categories menu
+                # If item is not saved, check if the user is sure
                 if not saved:
                     message = "Item not saved, are you certain you want to delete this item and choose another category?"
                     sure = checkSure(message)
@@ -296,6 +302,7 @@ def LootMenu(category):
                 return "Category"
 
             case 5: # Return to Main Menu
+                # If item is not saved, check if the user is sure
                 if not saved:
                     message = "Item not saved, are you certain you want to delete this item and choose another category?"
                     sure = checkSure(message)
@@ -310,8 +317,7 @@ def LootMenu(category):
                 print("\nInvalid choice. Please select a valid option.")
 
     
-
-
+# Function that saves item to a JSON file
 def SaveLoot(name, category, rarity, stat, statType, durability, trait, description):
     filename = "saved_loot.json"
 
@@ -344,13 +350,16 @@ def SaveLoot(name, category, rarity, stat, statType, durability, trait, descript
         json.dump(loot, file, indent=4)
 
 
+# Function that handles the menu input validation for choosing a category
 def CategoryMenu():
     categoryChoice = 0
     menuReturn = ""
-    
+
+    # Loop until user chooses to exit
     while categoryChoice != 5:
         ChooseCategory()
 
+        # Get user input for the category choice and handle invalid input
         try:
             categoryChoice = int(input())
         except ValueError:
@@ -366,7 +375,7 @@ def CategoryMenu():
                 menuReturn = LootMenu("Accessory")
             case 4:
                 menuReturn = LootMenu("Random")
-            case 5:
+            case 5: # Return to Main Menu
                 MainMenuHeader()
                 return
             case _:
