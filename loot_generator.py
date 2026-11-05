@@ -166,6 +166,7 @@ def GenerateLoot(category):
             if modName == "Durability":
                 durability += modValue
                 traits.append(f"Durability +{modValue}")
+                
             elif modName == statType:
                 stat += modValue
                 traits.append(f"{modName} +{modValue}")
@@ -176,8 +177,8 @@ def GenerateLoot(category):
         if modifier["trait"]:
             traits.append(modifier["trait"])
 
+        # Format the traits into a single string, or set to None if there are no traits
         trait = ", ".join(traits) if traits else None
-
         trait = f"{modifier['name']}: {trait}" if trait else None
 
     # If the rarity is Common, Uncommon, or Rare, generate the apropriate name and description based on the modifier
