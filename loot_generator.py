@@ -285,6 +285,13 @@ def LootMenu(category):
                 saved = True
 
             case 3: # Generate another
+                if not saved:
+                    message = "Item not saved, are you certain you want to delete this item and generate another?"
+                    sure = checkSure(message)
+                    if not sure:
+                        choice = 0
+                        continue
+
                 lootCategory = random.choice(CATEGORIES) if category == "Random" else category
 
                 name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
