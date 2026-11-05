@@ -166,7 +166,7 @@ def GenerateLoot(category):
             if modName == "Durability":
                 durability += modValue
                 traits.append(f"Durability +{modValue}")
-                
+
             elif modName == statType:
                 stat += modValue
                 traits.append(f"{modName} +{modValue}")
@@ -195,12 +195,13 @@ def GenerateLoot(category):
 
 def LootMenu(category):
     choice = 0
+    lootCategory = random.choice(CATEGORIES) if category == "Random" else category
 
     GeneratedLootHeader() # Display the generated loot header
     name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
-    LootSummary(name, category, rarity, stat, statType, durability, trait)
+    LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
 
-    while choice != 5 and choice !=4:
+    while (choice != 5) and (choice != 4):
         LootOptions() # Display the loot options menu
 
         # Get user input for the loot options choice and handle invalid input
@@ -212,23 +213,27 @@ def LootMenu(category):
 
         match choice:
             case 1: # View description
-                ViewDescription(name, category, rarity, stat, statType, durability, trait, description)
+                ViewDescription(name, lootCategory, rarity, stat, statType, durability, trait, description)
 
             case 2: # Delete and generate another
-                name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
-                LootSummary(name, category, rarity, stat, statType, durability, trait)
+                lootCategory = random.choice(CATEGORIES) if category == "Random" else category
+
+                name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
+                LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
 
             case 3: # Save and generate another
-                SaveLoot(name, category, rarity, stat, statType, durability, trait, description)
+                SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
                 print(f"\nItem '{name}' saved!\n")
-                name, rarity, statType, stat, description, durability, trait = GenerateLoot(category)
-                LootSummary(name, category, rarity, stat, statType, durability, trait)
+                lootCategory = random.choice(CATEGORIES) if category == "Random" else category
+
+                name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
+                LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
 
             case 4: # Delete and return to main menu
                 print("\nReturning to main menu...\n")
 
             case 5: # Save and return to main menu
-                SaveLoot(name, category, rarity, stat, statType, durability, trait, description)
+                SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
                 print(f"\nItem '{name}' saved! Returning to main menu...\n")
 
             case _: # Handle invalid loot option choice
@@ -293,8 +298,7 @@ def main():
                 pass
 
             case 2: # Generate random loot
-                category = random.choice(CATEGORIES)
-                LootMenu(category)
+                LootMenu("Random")
 
             case 3: # Exit the program
                 pass
