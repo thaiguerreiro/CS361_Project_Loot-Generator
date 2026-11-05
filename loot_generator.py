@@ -299,6 +299,38 @@ def SaveLoot(name, category, rarity, stat, statType, durability, trait, descript
         json.dump(loot, file, indent=4)
 
 
+def CategoryMenu():
+    categoryChoice = 0
+    menuReturn = ""
+    
+    while categoryChoice != 5:
+        ChooseCategory()
+
+        try:
+            categoryChoice = int(input())
+        except ValueError:
+            print("\nInvalid input. Please enter a number between 1 and 5.")
+            continue
+
+        match categoryChoice:
+            case 1:
+                menuReturn = LootMenu("Weapon")
+            case 2:
+                menuReturn = LootMenu("Armor")
+            case 3:
+                menuReturn = LootMenu("Accessory")
+            case 4:
+                menuReturn = LootMenu("Random")
+            case 5:
+                MainMenuHeader()
+                return
+            case _:
+                print("\nInvalid choice. Please select a valid option.")
+
+        if menuReturn == "Main":
+            return
+
+
 # Main function to run the loot generator program
 def main():
     mainMenuChoice = 0
@@ -319,30 +351,7 @@ def main():
 
         match mainMenuChoice:
             case 1: # Choose a category
-                categoryChoice = 0
-
-                while categoryChoice != 5:
-                    ChooseCategory()
-
-                    try:
-                        categoryChoice = int(input())
-                    except ValueError:
-                        print("\nInvalid input. Please enter a number between 1 and 5.")
-                        continue
-
-                    match categoryChoice:
-                        case 1:
-                            menuReturn = LootMenu("Weapon")
-                        case 2:
-                            menuReturn = LootMenu("Armor")
-                        case 3:
-                            menuReturn = LootMenu("Accessory")
-                        case 4:
-                            menuReturn = LootMenu("Random")
-                        case 5:
-                            pass
-                        case _:
-                            print("\nInvalid choice. Please select a valid option.")
+                CategoryMenu()
 
             case 2: # Generate random loot
                 menuReturn = LootMenu("Random")
