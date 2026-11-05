@@ -292,7 +292,7 @@ def main():
             case _: # Handle invalid menu choice
                 print("\nInvalid choice. Please select a valid option.")
 
-    print("\nThank you for using this loot generator. Goodbye!")
+    print("\nThank you for using this loot generator. Goodbye!\n")
         
 
 # Entry point of the program
