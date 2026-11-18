@@ -482,7 +482,7 @@ def main():
     MainMenuHeader() # Display the main menu header
 
     # Loop to keep the program running until the user chooses to exit
-    while mainMenuChoice != 3:
+    while mainMenuChoice != 4:
         MainMenu() # Display the main menu options
         menuReturn = ""
 
@@ -490,7 +490,7 @@ def main():
         try:
             mainMenuChoice = int(input())
         except ValueError:
-            print("\nInvalid input. Please enter a number between 1 and 3.")
+            print("\nInvalid input. Please enter a number between 1 and 4.")
             continue
 
         match mainMenuChoice:
