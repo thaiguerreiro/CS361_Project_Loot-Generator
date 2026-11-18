@@ -67,7 +67,8 @@ def MainMenu():
     
     print("   1. Choose a Category")
     print("   2. Generate Random Loot")
-    print("   3. Exit\n")
+    print("   3. View Saved Items")
+    print("   4. Exit\n")
     
     print("Select an option (1-3): ", end="")
 
