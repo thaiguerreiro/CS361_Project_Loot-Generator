@@ -2,7 +2,10 @@ import random
 import json
 import os
 import textwrap
+import requests
 
+currKey = 1
+URL = "http://localhost:5001/items"
 
 # Constants for loot categories and rarities
 CATEGORIES = ["Weapon", "Armor", "Accessory"]
@@ -327,19 +330,8 @@ def LootMenu(category):
     
 # Function that saves item to a JSON file
 def SaveLoot(name, category, rarity, stat, statType, durability, trait, description):
-    filename = "saved_loot.json"
+    global currKey
 
-    # Load existing loot, or create an empty list
-    if os.path.exists(filename):
-        with open(filename, "r") as file:
-            try:
-                loot = json.load(file)
-            except json.JSONDecodeError:
-                loot = []
-    else:
-        loot = []
-
-    # Create a dictionary for the new item
     newLoot = {
         "name": name,
         "category": category,
@@ -351,11 +343,32 @@ def SaveLoot(name, category, rarity, stat, statType, durability, trait, descript
         "description": description
     }
 
-    # Add the item and save the updated list
-    loot.append(newLoot)
+    # Test send save request
+    try:
+        response = requests.post(URL, json={
+                "key": currKey,
+                "value": newLoot
+            })
+    except requests.exceptions.ConnectionError:
+        print("\nCould not connect to the Runtime Database microservice.")
+        return False
 
-    with open(filename, "w") as file:
-        json.dump(loot, file, indent=4)
+    # Get data and status code
+    data = response.json()
+    status = response.status_code
+
+    # If it is not a success, indicate error
+    if (not data.get("success")):
+        print(f"\nErrored with status code: {status}. Could not save. Reason: {data.get('error')}")
+        return False
+
+    # If successful, return success
+    else:
+        print(f"\nSave successful with item ID {currKey}")
+
+        currKey += 1
+
+        return True    
 
 
 # Function that handles the menu input validation for choosing a category
