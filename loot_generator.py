@@ -330,6 +330,62 @@ def LootMenu(category):
             case _: # Handle invalid loot option choice
                 print("\nInvalid choice. Please select a valid option.")
 
+
+# Function that displays menu for viewing saved items
+def SavedItems():
+    option = 0
+
+    print("\n--------------------------------------------\n")
+    print("                Saved Items")
+    print("\n--------------------------------------------\n")
+
+    # Test send save request
+    try:
+        response = requests.get(URL)
+    except requests.exceptions.ConnectionError:
+        print("\nCould not connect to the Runtime Database microservice.")
+        return
+
+    # Get data and status code
+    data = response.json()
+    status = response.status_code
+
+    # If it is not a success, indicate error
+    if (not data.get("success")):
+        print(f"\nErrored with status code: {status}. Could not retrieve. Reason: {data.get('error')}")
+        return
+
+    items = data.get("data")
+
+    for key, item in data:
+        print(f"\nItem {key}")
+        print(f"   Name: {item['name']}")
+        print(f"   Type: {item['category']}")
+        print(f"   Rarity: {item['rarity']}\n")
+
+        print(f"   {item'[statType]'}: {item['stat']}")
+        print(f"   Durability: {item['durability']}")
+
+    print("\n--------------------------------------------\n")
+
+    while (option != 3):
+        ItemMenu()
+
+        # Get user input for the menu choice and handle invalid input
+        try:
+            categoryChoice = int(input())
+        except ValueError:
+            print("\nInvalid input. Please enter a number between 1 and 5.")
+            continue
+
+        match option:
+            case 1: # View description
+                pass
+            case 2: # Delete an item
+                pass
+            case 3: # Return to main menu
+                return
+
     
 # Function that saves item to a JSON file
 def SaveLoot(name, category, rarity, stat, statType, durability, trait, description):
