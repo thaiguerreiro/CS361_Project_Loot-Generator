@@ -367,8 +367,6 @@ def SavedItems():
         print(f"   {item['statType']}: {item['stat']}")
         print(f"   Durability: {item['durability']}")
 
-    print("\n--------------------------------------------\n")
-
     while (option != 3):
         ItemMenu()
 
@@ -394,7 +392,7 @@ def ItemMenu():
 
     print("   1. View an item's description")
     print("   2. Delete an item")
-    print("   3. Return to Main Menu")
+    print("   3. Return to Main Menu\n")
 
     print("Select an option (1-3): ", end="")
 
