@@ -283,9 +283,12 @@ def LootMenu(category):
                         continue
 
                 # Save item
-                SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
-                print(f"\nItem '{name}' saved!")
-                saved = True
+                success = SaveLoot(name, lootCategory, rarity, stat, statType, durability, trait, description)
+
+                # If saved successfully
+                if (success):
+                    print(f"Item '{name}' saved!")
+                    saved = True
 
             case 3: # Generate another
                 if not saved:
@@ -364,7 +367,7 @@ def SaveLoot(name, category, rarity, stat, statType, durability, trait, descript
 
     # If successful, return success
     else:
-        print(f"\nSave successful with item ID {currKey}")
+        print(f"\nSave successful with item ID {currKey}.")
 
         currKey += 1
 
