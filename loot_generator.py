@@ -386,6 +386,17 @@ def SavedItems():
             case 3: # Return to main menu
                 return
 
+
+# Display options for the item menu
+def ItemMenu():
+    print("\n--------------------------------------------\n")
+
+    print("   1. View an item's description")
+    print("   2. Delete an item")
+    print("   3. Return to Main Menu")
+
+    print("Select an option (1-3): ", end="")
+
     
 # Function that saves item to a JSON file
 def SaveLoot(name, category, rarity, stat, statType, durability, trait, description):
