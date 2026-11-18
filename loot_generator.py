@@ -358,7 +358,7 @@ def SavedItems():
 
     items = data.get("data")
 
-    for key, item in data:
+    for key, item in items:
         print(f"\nItem {key}")
         print(f"   Name: {item['name']}")
         print(f"   Type: {item['category']}")
