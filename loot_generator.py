@@ -230,10 +230,10 @@ def checkSure(message):
     print("\n" + textwrap.fill(message, width=45))
 
     print("\n   1. Yes, I am sure")
-    print("   2. No, go back\n")
+    print("   2. No, go back")
 
     while choice not in (1, 2):
-        print("Select an option (1-2): ", end="")
+        print("\nSelect an option (1-2): ", end="")
 
         # Get user input for user sure choice and handle invalid input
         try:
