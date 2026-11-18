@@ -504,7 +504,10 @@ def main():
                 if menuReturn == "Category":
                     CategoryMenu()
 
-            case 3: # Exit the program
+            case 3: # View saved items
+                SavedItems()
+
+            case 4: # Exit the program
                 pass
 
             case _: # Handle invalid menu choice
