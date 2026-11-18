@@ -363,7 +363,7 @@ def SavedItems():
         print(f"   Type: {item['category']}")
         print(f"   Rarity: {item['rarity']}\n")
 
-        print(f"   {item'[statType]'}: {item['stat']}")
+        print(f"   {item['statType']}: {item['stat']}")
         print(f"   Durability: {item['durability']}")
 
     print("\n--------------------------------------------\n")
@@ -373,9 +373,9 @@ def SavedItems():
 
         # Get user input for the menu choice and handle invalid input
         try:
-            categoryChoice = int(input())
+            option = int(input())
         except ValueError:
-            print("\nInvalid input. Please enter a number between 1 and 5.")
+            print("\nInvalid input. Please enter a number 1-3.")
             continue
 
         match option:
