@@ -141,6 +141,7 @@ def ViewDescription(name, lootCategory, rarity, stat, statType, durability, trai
 
 # Function to display the loot options menu
 def LootOptions(saved):
+    # Customize messages for whether it's saved
     savedMessage = " (Already Saved)" if saved else ""
     notSavedMessage = " (Item Not Saved)" if not saved else ""
 
@@ -268,12 +269,16 @@ def checkSure(message):
 # Function that handles menu of what to do when generating items
 def LootMenu(category):
     choice = 0
-    saved = False
+    saved = False # Whether the current item has been saved
+
+    # If the category is random, choose random. Otherwise, use the selected category
     lootCategory = random.choice(CATEGORIES) if category == "Random" else category
 
     GeneratedLootHeader() # Display the generated loot header
+
+    # Generate the loot and get its traits
     name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
-    LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
+    LootSummary(name, lootCategory, rarity, stat, statType, durability, trait) # Display a summary
 
     while choice not in (4, 5):
         LootOptions(saved) # Display the loot options menu
@@ -346,9 +351,13 @@ def LootMenu(category):
                 print("\nInvalid choice. Please select a valid option.")
 
 
+# Display all items in a list with keys
 def DisplayAllItems(items):
+    # If there are no items, say so
     if len(items) == 0:
-        print("No items are saved.")
+        print("\nNo items are saved.")
+
+    # If there are items, display them
     else:
         for key, item in items.items():
             print(f"\nItem {key}")
@@ -386,6 +395,7 @@ def SavedItems():
 
     items = data.get("data")
 
+    # Display all items
     DisplayAllItems(items)
 
     while (1):
@@ -398,6 +408,7 @@ def SavedItems():
             print("\nInvalid input. Please enter a number 1-3.")
             continue
 
+        # Match users option to menu option
         match option:
             case 1: # View description
                 key = CheckKey(items, "examine")
@@ -414,6 +425,8 @@ def SavedItems():
                         items[key]['trait'],
                         items[key]['description'
                     ])
+
+                    # Display all items again
                     DisplayAllItems(items)
 
             case 2: # Delete an item
@@ -428,8 +441,10 @@ def SavedItems():
                 return
 
 
+# Get an input from the user and check to make sure it's a valid key or 0
 def CheckKey(items, command):
     while(1):
+        # Get option from user
         print(f"\nPlease enter the key of the item you would like to {command}, or 0 to go back: ", end="")
         try:
             key = str(input())
@@ -437,12 +452,14 @@ def CheckKey(items, command):
             print("\nInvalid input. Please enter a valid key.")
             continue
 
-        # If not a valid option
+        # If a valid option
         if (key == "0") or (key in items):
             return key
 
+        # If not a valid option
         else:
             print("\nInvalid input. Please enter a valid key.")
+
 
 # Display options for the item menu
 def ItemMenu():
