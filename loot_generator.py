@@ -394,29 +394,33 @@ def SavedItems():
         match option:
             case 1: # View description
                 pass
+
             case 2: # Delete an item
-                while(1):
-                    print("\nPlease enter the key of the item you would like to delete, or 0 to go back: ", end="")
-                    try:
-                        key = str(input())
-                    except ValueError:
-                        print("\nInvalid input. Please enter a valid key.")
-                        continue
+                key = CheckKey(items, "delete")
+                if (key == "0"):
+                    break
+                else:
+                    DeleteLoot(key)
 
-                    if (key == "0"):
-                        break
-
-                    elif (key in items):
-                        DeleteLoot(key)
-                        break
-
-                    else:
-                        print("\nInvalid input. Please enter a valid key.")
-
-                    
             case 3: # Return to main menu
                 return
 
+
+def CheckKey(items, command):
+    while(1):
+        print(f"\nPlease enter the key of the item you would like to {command}, or 0 to go back: ", end="")
+        try:
+            key = str(input())
+        except ValueError:
+            print("\nInvalid input. Please enter a valid key.")
+            continue
+
+        # If not a valid option
+        if (key == "0") or (key in items):
+            return key
+
+        else:
+            print("\nInvalid input. Please enter a valid key.")
 
 # Display options for the item menu
 def ItemMenu():
