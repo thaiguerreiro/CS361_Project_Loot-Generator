@@ -395,7 +395,25 @@ def SavedItems():
             case 1: # View description
                 pass
             case 2: # Delete an item
-                pass
+                while(1):
+                    print("\nPlease enter the key of the item you would like to delete, or 0 to go back: ", end="")
+                    try:
+                        key = str(input())
+                    except ValueError:
+                        print("\nInvalid input. Please enter a valid key.")
+                        continue
+
+                    if (key == "0"):
+                        break
+
+                    elif (key in items):
+                        DeleteLoot(key)
+                        break
+
+                    else:
+                        print("\nInvalid input. Please enter a valid key.")
+
+                    
             case 3: # Return to main menu
                 return
 
@@ -457,10 +475,10 @@ def SaveLoot(name, category, rarity, stat, statType, durability, trait, descript
 def DeleteLoot(key):
     # Test send delete request
     try:
-        response = requests.delete(URL, json={"key": key})
+        response = requests.delete(f"{URL}/{key}")
     except requests.exceptions.ConnectionError:
         print("\nCould not connect to the Runtime Database microservice.")
-        return False
+        return
 
     # Get data and status code
     data = response.json()
@@ -469,13 +487,10 @@ def DeleteLoot(key):
     # If it is not a success, indicate error
     if (not data.get("success")):
         print(f"\nErrored with status code: {status}. Could not delete. Reason: {data.get('error')}")
-        return False
 
-    # If successful, return success
+    # If successful, declare so
     else:
         print(f"\nDeletion of item {key} successful.")
-
-        return True
 
 
 # Function that handles the menu input validation for choosing a category
