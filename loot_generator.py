@@ -361,12 +361,14 @@ def DisplayAllItems(items):
     else:
         for key, item in items.items():
             print(f"\nItem {key}")
-            print(f"   Name: {item['name']}")
-            print(f"   Type: {item['category']}")
-            print(f"   Rarity: {item['rarity']}\n")
-
-            print(f"   {item['statType']}: {item['stat']}")
-            print(f"   Durability: {item['durability']}")
+            LootSummary(
+                item['name'],
+                item['category'],
+                item['rarity'],
+                item['stat'],
+                item['statType'],
+                item['durability'
+            ])
 
 
 # Function that displays menu for viewing saved items
