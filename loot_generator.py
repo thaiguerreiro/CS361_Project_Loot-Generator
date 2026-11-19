@@ -388,7 +388,7 @@ def SavedItems():
 
     DisplayAllItems(items)
 
-    while (option != 3):
+    while (1):
         ItemMenu()
 
         # Get user input for the menu choice and handle invalid input
@@ -400,12 +400,26 @@ def SavedItems():
 
         match option:
             case 1: # View description
-                pass
+                key = CheckKey(items, "examine")
+                if (key == "0"):
+                    continue
+                else:
+                    ViewDescription(
+                        items[key]['name'],
+                        items[key]['category'],
+                        items[key]['rarity'],
+                        items[key]['stat'],
+                        items[key]['statType'],
+                        items[key]['durability'],
+                        items[key]['trait'],
+                        items[key]['description'
+                    ])
+                    DisplayAllItems(items)
 
             case 2: # Delete an item
                 key = CheckKey(items, "delete")
                 if (key == "0"):
-                    break
+                    continue
                 else:
                     DeleteLoot(key)
                     return
