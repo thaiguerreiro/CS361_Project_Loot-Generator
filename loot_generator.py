@@ -111,7 +111,7 @@ def GeneratedLootHeader():
 
 
 # Function to display the generated loot details
-def LootSummary(name, type, rarity, stat, statType, durability, trait):
+def LootSummary(name, type, rarity, stat, statType, durability):
     print(f"Name: {name}")
     print(f"Type: {type}")
     print(f"Rarity: {rarity}\n")
@@ -278,7 +278,7 @@ def LootMenu(category):
 
     # Generate the loot and get its traits
     name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
-    LootSummary(name, lootCategory, rarity, stat, statType, durability, trait) # Display a summary
+    LootSummary(name, lootCategory, rarity, stat, statType, durability) # Display a summary
 
     while choice not in (4, 5):
         LootOptions(saved) # Display the loot options menu
@@ -321,7 +321,7 @@ def LootMenu(category):
                 lootCategory = random.choice(CATEGORIES) if category == "Random" else category
 
                 name, rarity, statType, stat, description, durability, trait = GenerateLoot(lootCategory)
-                LootSummary(name, lootCategory, rarity, stat, statType, durability, trait)
+                LootSummary(name, lootCategory, rarity, stat, statType, durability)
                 saved = False
 
             case 4: # Return to categories menu
