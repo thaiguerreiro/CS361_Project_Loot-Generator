@@ -454,6 +454,30 @@ def SaveLoot(name, category, rarity, stat, statType, durability, trait, descript
         return True    
 
 
+def DeleteLoot(key):
+    # Test send delete request
+    try:
+        response = requests.delete(URL, json={"key": key})
+    except requests.exceptions.ConnectionError:
+        print("\nCould not connect to the Runtime Database microservice.")
+        return False
+
+    # Get data and status code
+    data = response.json()
+    status = response.status_code
+
+    # If it is not a success, indicate error
+    if (not data.get("success")):
+        print(f"\nErrored with status code: {status}. Could not delete. Reason: {data.get('error')}")
+        return False
+
+    # If successful, return success
+    else:
+        print(f"\nDeletion of item {key} successful.")
+
+        return True
+
+
 # Function that handles the menu input validation for choosing a category
 def CategoryMenu():
     categoryChoice = 0
