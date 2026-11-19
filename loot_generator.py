@@ -7,6 +7,16 @@ import subprocess
 import pathlib
 import time
 
+# Get the directory containing main.py
+ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
+
+# Location of the database microservice
+DATABASE_DIR = ROOT_DIR / "Project Microservices" / "Runtime-Database_Microservice"
+
+# Start the database server
+database_process = None
+# Give the server time to start
+time.sleep(1)
 
 currKey = 1
 URL = "http://localhost:5001/items"
@@ -516,8 +526,31 @@ def main():
                 print("\nInvalid choice. Please select a valid option.")
 
     print("\nThank you for using this loot generator. Goodbye!\n")
+
+    database_process.terminate()
+    database_process.wait()
         
 
-# Entry point of the program
+# Entry point of the program and start the server
 if __name__ == "__main__":
-    main()
+    try:
+        database_process = subprocess.Popen(
+            ["node", "RuntimeDb.js"],
+            cwd=DATABASE_DIR
+        )
+        time.sleep(1)
+
+            # Check whether Node.js exited during startup
+        if database_process.poll() is not None:
+            raise RuntimeError("Database server failed to start.")
+
+        main()
+
+    except (FileNotFoundError, RuntimeError) as error:
+        print(f"Could not start database microservice: {error}")
+        exit(1)
+
+    finally:
+        if database_process is not None and database_process.poll() is None:
+            database_process.terminate()
+            database_process.wait()
