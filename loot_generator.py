@@ -84,7 +84,7 @@ def MainMenu():
     print("   3. View Saved Items")
     print("   4. Exit\n")
     
-    print("Select an option (1-3): ", end="")
+    print("Select an option (1-4): ", end="")
 
 
 # Function to display the category selection menu
