@@ -431,8 +431,22 @@ def SavedItems():
                 if (key == "0"):
                     continue
                 else:
-                    DeleteLoot(key)
-                    return
+                    LootSummary(
+                        items[key]['name'],
+                        items[key]['category'],
+                        items[key]['rarity'],
+                        items[key]['stat'],
+                        items[key]['statType'],
+                        items[key]['durability'
+                    ])
+                    sure = checkSure("Are you sure you want to delete this item?")
+                    print('\n')
+                    if sure:
+                        DeleteLoot(key)
+                        return
+                    else:
+                        option = 0
+                        continue
 
             case 3: # Return to main menu
                 return
