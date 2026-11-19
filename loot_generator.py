@@ -360,7 +360,7 @@ def DisplayAllItems(items):
     # If there are items, display them
     else:
         for key, item in items.items():
-            print(f"\nItem {key}")
+            print(f"\n               --- Item {key} ---\n")
             LootSummary(
                 item['name'],
                 item['category'],
