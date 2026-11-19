@@ -13,11 +13,6 @@ ROOT_DIR = pathlib.Path(__file__).resolve().parent.parent
 # Location of the database microservice
 DATABASE_DIR = ROOT_DIR / "Project Microservices" / "Runtime-Database_Microservice"
 
-# Start the database server
-database_process = None
-# Give the server time to start
-time.sleep(1)
-
 currKey = 1
 URL = "http://localhost:5001/items"
 
@@ -617,12 +612,19 @@ def main():
 
 # Entry point of the program and start the server
 if __name__ == "__main__":
+    database_process = None
+
     try:
         database_process = subprocess.Popen(
             ["node", "RuntimeDb.js"],
             cwd=DATABASE_DIR
         )
-        time.sleep(1)
+        print("\nStarting microservice servers, please wait...\n")
+        time.sleep(0.5)
+        print(". . .\n")
+        time.sleep(0.5)
+        print(". . .\n")
+        time.sleep(0.5)
 
         # Check whether Node.js exited during startup
         if database_process.poll() is not None:
