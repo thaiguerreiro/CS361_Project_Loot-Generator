@@ -346,13 +346,27 @@ def LootMenu(category):
                 print("\nInvalid choice. Please select a valid option.")
 
 
+def DisplayAllItems(items):
+    if len(items) == 0:
+        print("No items are saved.")
+    else:
+        for key, item in items.items():
+            print(f"\nItem {key}")
+            print(f"   Name: {item['name']}")
+            print(f"   Type: {item['category']}")
+            print(f"   Rarity: {item['rarity']}\n")
+
+            print(f"   {item['statType']}: {item['stat']}")
+            print(f"   Durability: {item['durability']}")
+
+
 # Function that displays menu for viewing saved items
 def SavedItems():
     option = 0
 
     print("\n--------------------------------------------\n")
     print("                Saved Items")
-    print("\n--------------------------------------------\n")
+    print("\n--------------------------------------------")
 
     # Test send save request
     try:
@@ -372,14 +386,7 @@ def SavedItems():
 
     items = data.get("data")
 
-    for key, item in items.items():
-        print(f"\nItem {key}")
-        print(f"   Name: {item['name']}")
-        print(f"   Type: {item['category']}")
-        print(f"   Rarity: {item['rarity']}\n")
-
-        print(f"   {item['statType']}: {item['stat']}")
-        print(f"   Durability: {item['durability']}")
+    DisplayAllItems(items)
 
     while (option != 3):
         ItemMenu()
@@ -401,6 +408,7 @@ def SavedItems():
                     break
                 else:
                     DeleteLoot(key)
+                    return
 
             case 3: # Return to main menu
                 return
