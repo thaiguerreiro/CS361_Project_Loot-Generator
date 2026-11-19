@@ -540,7 +540,7 @@ if __name__ == "__main__":
         )
         time.sleep(1)
 
-            # Check whether Node.js exited during startup
+        # Check whether Node.js exited during startup
         if database_process.poll() is not None:
             raise RuntimeError("Database server failed to start.")
 
